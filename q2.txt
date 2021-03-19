@@ -1,0 +1,11 @@
+What does this Vue warning message mean? 
+Can you safely ignore it? 
+What causes it, and how do you fix it?  
+Write an answer in your own words. 
+
+The message means that there is a variable or piece of data (or property) referenced in the html Vue app section but that we have not yet defined what it is in our
+Vue app script. So it would not be safe to ignore it because it will be an undefined value and if we're relying on our app to show a user 
+specific data represented in that variable, not defining what it's supposed to be would be a gap in functionality for our app. It may still
+do many of the things we want it to based on what piece of data is not rendered, but it could also be central to the app's functionality and
+be kind of a disaster to the app.
+We would fix this by defining the property/variable in our Vue script - whatever information is supposed to go in there for the app to display.

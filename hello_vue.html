@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <script src="https://unpkg.com/vue@next"></script>
+    </head>
+    <body>
+        <div id="app">
+<!-- all the page that vue will manage to go here -->
+            <h1>Hello Vue!</h1>
+
+            <p>Original Message: {{ message }}</p>
+            <p>Added !!s {{ messageWithExclamationPoints }}</p>
+            <!-- <p>The {{ message }} loves {{thisClass}}</p> -->
+            <button v-on:click="addExclamation"> Add !!</button>
+            <button v-on:click="clearExclamation">Clear !!!</button>
+
+        </div>
+        <script>
+            // create app - method call - how is app structured, what data does it store, what does it do
+            let app = Vue.createApp({
+                // create function to return data
+                data() {
+                    return {
+                        message: 'donkey', //add comma between pieces of data
+                        thisClass: 'Grand Canyon hiking',
+                        maxExclamationPoints: 10,
+                        currentExclamationPoints: 0
+                    }
+                },
+                methods: {
+                    addExclamation() {
+                        if (this.currentExclamationPoints < this.maxExclamationPoints) {
+                            this.currentExclamationPoints = this.currentExclamationPoints + 2
+                            // this.message = this.message + '!!'
+                        } else {
+                            alert('Too many exclamation points!')
+                            // return
+                        }
+                        
+                    },
+                    clearExclamation() {
+                        if (this.currentExclamationPoints > 0) {
+                        // this.message = 'elephant'
+                        this.currentExclamationPoints = 0
+                        } else {
+                            alert('No more exclamation points to exsanguinate')
+                        }
+                    }
+                },
+                computed: {
+                    messageWithExclamationPoints() {
+                        let messageWithPoints = this.message
+                        for (let x = 0; x < this.currentExclamationPoints ; x++) {
+                            messageWithPoints = messageWithPoints + '!!'
+                        }
+                        return messageWithPoints
+                    }
+                }
+            })
+            //css selector - matches id from div element
+            app.mount('#app')
+
+        </script>
+    </body>
+</html>

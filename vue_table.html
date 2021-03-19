@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <script src="https://unpkg.com/vue@next"></script>
+
+        <style>
+            td, th {
+                width: 25%;
+                text-align: center;
+            }
+
+            .error-message {
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            
+            <table>
+                <tr>
+                    <th>Item</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+
+                <tr>
+                    <td>{{ name }}</td>
+                    <td>${{ unitPrice }}</td>
+                    <td>
+                        <input type="number" id="quantity" v-model.number="quantity">
+                        <div class="error-message v-if="quantityError>{{ quantityError }}</div>
+                    </td> 
+                    <td>
+                        <div v-if="quantityError">
+                            Invalid quantity
+                        </div>
+                        <div v-else>
+                        ${{ total }}
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+        <script>
+            
+            let app = Vue.createApp({
+                data() {
+                    return {
+                        name: 'Hat',
+                        quantity: 1,
+                        unitPrice: 8.59,
+                        maxQuantity: 20,
+                        quantityError: ''
+                    }
+                },
+                computed: {
+                    total() {
+                        if (!Number.isInteger(this.quantity)) {
+                            this.quantityError = 'Quantity must be a number'
+                        }
+                        else if (this.quantity < 0 || this.quantity > this.maxQuantity) {
+                            this.quantityError = 'Quantity must be between 0 and 20'
+                        }
+                        else {
+                            this.quantityError = ''
+                        
+                        let totalPrice = this.quantity * this.unitPrice
+                        let formattedPrice = totalPrice.toFixed(2) //how many digits after a decimal place
+                        return formattedPrice //don't need to use this. for variables created in computed section
+                        }
+                    }
+                }
+            })
+
+            app.mount('#app')
+
+        </script>
+    </body>
+</html>
